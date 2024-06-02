@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sudoku Solver</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid #000;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+        input {
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            border: none;
+        }
+        .highlight { background-color: #f0f0f0; }
+    </style>
+    <script>
+        function createTable() {
+            const table = document.createElement('table');
+            for (let i = 0; i < 9; i++) {
+                const tr = document.createElement('tr');
+                for (let j = 0; j < 9; j++) {
+                    const td = document.createElement('td');
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = 'cell-' + i + '-' + j;
+                    input.maxLength = 1;
+                    td.appendChild(input);
+                    if ((i + 1) % 3 === 0) td.classList.add('highlight');
+                    if ((j + 1) % 3 === 0) td.classList.add('highlight');
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+            document.getElementById('sudoku-board').appendChild(table);
+        }
+
+        function serializeTable() {
+            let puzzle = '';
+            const rows = document.querySelectorAll('table tr');
+            rows.forEach((tr, rowIndex) => {
+                const cells = tr.querySelectorAll('td input');
+                cells.forEach((input, colIndex) => {
+                    puzzle += input.value || '.';
+                    if (colIndex < 8) puzzle += ' ';
+                });
+                if (rowIndex < 8) puzzle += '\n';
+            });
+            document.getElementById('puzzle').value = puzzle;
+        }
+
+        window.onload = createTable;
+    </script>
+</head>
+<body>
+    <h1 style="text-align: center;">Sudoku Solver</h1>
+    <h2 style="text-align: center;">Enter the numbers:</h2>
+    <form method="post" onsubmit="serializeTable()">
+        {% csrf_token %}
+        <div id="sudoku-board"></div>
+        <input type="hidden" name="puzzle" id="puzzle">
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit">Solve</button>
+        </div>
+    </form>
+</body>
+</html>

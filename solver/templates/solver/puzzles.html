@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sudoku Puzzles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px; /* Adjusted max-width */
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .puzzle-and-solution {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .puzzle,
+        .solution {
+            width: calc(50% - 5px); /* Adjusted width for side by side display */
+        }
+
+        .time-info {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku Puzzles</h1>
+        <ul>
+            {% for puzzle in puzzles %}
+                <li class="card">
+                    <div class="puzzle-and-solution">
+                        <div class="puzzle">
+                            <h2>Puzzle:</h2>
+                            <pre>{{ puzzle.puzzle }}</pre>
+                        </div>
+                        <div class="solution">
+                            <h2>Solution:</h2>
+                            <pre>{{ puzzle.solution }}</pre>
+                        </div>
+                    </div>
+                    <div class="time-info">
+                        <p>Created: {{ puzzle.created_at }}</p>
+                        <p>Solved: {{ puzzle.solved_at }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

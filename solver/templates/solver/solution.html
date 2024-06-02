@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sudoku Solution</title>
+    <style>
+        .container {
+            text-align: center;
+        }
+        .table-container {
+            display: inline-block;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid #000;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+        .highlight {
+            background-color: #f0f0f0;
+        }
+        .separator {
+            border-bottom: 2px solid #000;
+        }
+        .right-border {
+            border-right: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Sudoku Solution</h1>
+    <div class="container">
+        <div class="table-container">
+            <h2>Puzzle:</h2>
+            <table>
+                {% for row in puzzle.puzzle.splitlines %}
+                    <tr>
+                        {% for cell in row.split %}
+                            <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="table-container">
+            <h2>Solution:</h2>
+            <table>
+                {% for row in puzzle.solution.splitlines %}
+                    <tr>
+                        {% for cell in row.split %}
+                            <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <a href="{% url 'sudoku_solver' %}">Solve another puzzle</a>
+    </div>
+</body>
+</html>
